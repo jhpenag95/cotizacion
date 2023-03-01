@@ -1,3 +1,43 @@
+<?php
+
+$alert = '';
+session_start();
+if (!empty($_SESSION['active'])) {
+    header('location: sistema/');
+} else {
+
+    if (!empty($_POST)) {
+        if (empty($_POST['usuario']) || empty($_POST['clave'])) {
+            $alert = 'Ingrese su usuario y su clave';
+        } else {
+            require_once "conexion.php";
+            $user = mysqli_real_escape_string($conexion, $_POST['usuario']);
+            $pass = md5(mysqli_real_escape_string($conexion, $_POST['clave']));
+
+            $query = mysqli_query($conexion, "SELECT * FROM usuario WHERE usuario = '$user'  AND clave = '$pass'");
+            mysqli_close($conexion);
+            $result = mysqli_num_rows($query); //devuelve numero 
+            if ($result > 0) {
+                $data = mysqli_fetch_array($query);
+                
+
+                $_SESSION['active'] = true;
+                $_SESSION['idUser'] = $data['idusuario'];
+                $_SESSION['nombre'] = $data['nombre'];
+                $_SESSION['email'] = $data['email'];
+                $_SESSION['user'] = $data['usuario'];
+                $_SESSION['rol'] = $data['rol'];
+
+                header('location: sistema/');
+            } else {
+                $alert = 'El usuario con clave son incorrectas';
+                session_destroy();
+            }
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -21,7 +61,7 @@
                     <img src="img/login.png" class="img-fluid" alt="Sample image">
                 </div>
                 <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1 contform p-5">
-                <h3 class="text-center pb-4 fs-1">Ingresar</h3>
+                    <h3 class="text-center pb-4 fs-1">Ingresar</h3>
                     <form action="" method="post">
                         <!-- Email input -->
                         <div class="form-outline mb-4">
@@ -34,11 +74,11 @@
                             <input type="password" name="clave" id="form3Example4" class="form-control form-control-lg" placeholder="Ingrese su contraseña" />
                             <label class="form-label" for="form3Example4">Contraseña</label>
                         </div>
-                            
-                            <div class="text-center text-lg-start mt-4 pt-2">
-                                <button type="button" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Entrar</button>
-                                <p class="small fw-bold mt-2 pt-1 mb-0">No tienes cuenta? <a href="#!" class="link-danger">Registrar</a></p>
-                                <p class="small fw-bold mt-2 pt-1 mb-0"><a href="#!" class=" text-light">Problemas para ingresar?</a></p>
+                        <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
+                        <div class="text-center text-lg-start mt-4 pt-2">
+                            <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Entrar</button>
+                            <p class="small fw-bold mt-2 pt-1 mb-0">No tienes cuenta? <a href="#!" class="link-danger">Registrar</a></p>
+                            <p class="small fw-bold mt-2 pt-1 mb-0"><a href="#!" class=" text-light">Problemas para ingresar?</a></p>
                         </div>
 
                     </form>
