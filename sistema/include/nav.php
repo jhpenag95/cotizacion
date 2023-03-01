@@ -27,8 +27,8 @@
                         Clientes
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Nuevo Cliente</a></li>
-                        <li><a class="dropdown-item" href="#">Lista de Clientes</a></li>
+                        <li><a class="dropdown-item" href="registro_cliente.php">Nuevo Cliente</a></li>
+                        <li><a class="dropdown-item" href="lista_clientes.php">Lista de Clientes</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -36,7 +36,7 @@
                         Proveedores
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Nuevo Proveedor</a></li>
+                        <li><a class="dropdown-item" href="registro_proveedor.php">Nuevo Proveedor</a></li>
                         <li><a class="dropdown-item" href="#">Lista de Proveedores</a></li>
                     </ul>
                 </li>
@@ -51,11 +51,11 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Facturas
+                        Cotización
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Facturas</a></li>
-                        <li><a class="dropdown-item" href="#">Nuevo Factura</a></li>
+                        <li><a class="dropdown-item" href="#">Cotización</a></li>
+                        <li><a class="dropdown-item" href="#">Nuevo Cotización</a></li>
                     </ul>
                 </li>
             </ul>

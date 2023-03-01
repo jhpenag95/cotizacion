@@ -14,7 +14,7 @@ if (!empty($_POST)) {
 		<path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
 	  </svg>Todos los campos son obligatorio</p>';
     } else {
-        $idusuario = $_POST['idUsuario'];
+        $idusuario = $_POST['id'];
         $nombre = $_POST['nombre'];
         $email = $_POST['correo'];
         $user = $_POST['usuario'];
@@ -25,11 +25,9 @@ if (!empty($_POST)) {
         $query = mysqli_query($conexion, "SELECT * FROM usuario WHERE (usuario = '$user' AND idusuario != $idusuario)  OR (correo = '$email' AND idusuario != $idusuario)");
         $result = mysqli_fetch_array($query);
 
-        if ($result > 0) {
-            $alert = '<p class="msg_error alertas-p"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill mx-2" viewBox="0 0 16 16">
-			<path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-		  </svg>El correo o el usuario ya existe</p>';
-        } else {
+        $result = count($result);
+
+      
             if (empty($_POST['clave'])) {
 
                 $sql_update = mysqli_query($conexion, "UPDATE usuario SET nombre = '$nombre', correo = '$email', usuario = '$user', rol = '$rol' WHERE idusuario = $idusuario");
@@ -48,20 +46,19 @@ if (!empty($_POST)) {
 				<path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
 			  </svg>Error al actualizar usuario</p>';
             }
-        }
+        
     }
-    mysqli_close($conexion);
+
 }
 
 //Mostrar datos
 
-if (empty($_GET['id'])) {
+if (empty($_REQUEST['id'])) {
     header('location: lista_usuarios.php');
     mysqli_close($conexion);
 }
 
-include "../conexion.php";
-$iduser = $_GET['id'];
+$iduser = $_REQUEST['id'];
 
 $sql = mysqli_query($conexion, "SELECT u.idusuario, u.nombre, u.correo, u.usuario, (u.rol) as idrol, (r.rol) as rol 
                                 FROM usuario u 
@@ -116,7 +113,7 @@ if ($result_sql == 0) {
 
             <div class="container">
                 <form class="row g-3 needs-validation" action="" method="post" novalidate>
-                    <input type="hidden" name="idUsuario" value="<?php echo $iduser ?>">
+                    <input type="hidden" name="id" value="<?php echo $iduser ?>">
                     <div class="col-md-4 position-relative">
                         <label for="validationTooltip01" class="form-label">Nombres</label>
                         <input type="text" class="form-control" name="nombre" id="validationTooltip01" placeholder="Nombre Completo" value="<?php echo $nombre ?>">
