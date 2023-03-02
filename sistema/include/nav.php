@@ -53,9 +53,9 @@
                         <?php
                         if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
                         ?>
-                            <li><a class="dropdown-item" href="#">Nuevo Producto</a></li>
+                            <li><a class="dropdown-item" href="registro_producto.php">Nuevo Producto</a></li>
                         <?php } ?>
-                        <li><a class="dropdown-item" href="#">Lista de Productos</a></li>
+                        <li><a class="dropdown-item" href="lista_producto.php">Lista de Productos</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
