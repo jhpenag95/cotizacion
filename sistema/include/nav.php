@@ -31,21 +31,30 @@
                         <li><a class="dropdown-item" href="lista_clientes.php">Lista de Clientes</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Proveedores
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="registro_proveedor.php">Nuevo Proveedor</a></li>
-                        <li><a class="dropdown-item" href="#">Lista de Proveedores</a></li>
-                    </ul>
-                </li>
+
+                <?php
+                if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
+                ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Proveedores
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="registro_proveedor.php">Nuevo Proveedor</a></li>
+                            <li><a class="dropdown-item" href="lista_proveedor.php">Lista de Proveedores</a></li>
+                        </ul>
+                    </li>
+                <?php } ?>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Productos
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Nuevo Producto</a></li>
+                        <?php
+                        if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
+                        ?>
+                            <li><a class="dropdown-item" href="#">Nuevo Producto</a></li>
+                        <?php } ?>
                         <li><a class="dropdown-item" href="#">Lista de Productos</a></li>
                     </ul>
                 </li>

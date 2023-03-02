@@ -76,7 +76,7 @@ if (empty($_REQUEST['id'])) {
                     <form action="" method="post">
                         <div class="container d-flex justify-content-center align-items-center mt-5">
                             <input type="hidden" name="idcliente" value="<?php echo $idcliente?>">
-                            <a href="lista_usuarios.php" type="button" class="btn btn-warning">cancelar</a>
+                            <a href="lista_clientes.php" type="button" class="btn btn-warning">cancelar</a>
                             <input href="#" type="submit" class="btn btn-danger mx-2" value="Eliminar"></input>
                         </div>
                     </form>

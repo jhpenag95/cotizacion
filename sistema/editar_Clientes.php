@@ -61,7 +61,7 @@
     $idcliente = $_REQUEST['id'];
 
     $sql = mysqli_query($conexion, "SELECT * FROM cliente 
-                                    WHERE idcliente = $idcliente");
+                                    WHERE idcliente = $idcliente AND estatus = 1");
     mysqli_close($conexion);
     $result_sql = mysqli_num_rows($sql);
 
