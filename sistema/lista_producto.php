@@ -10,6 +10,11 @@ include "../conexion.php";
 <head>
     <meta charset="UTF-8">
     <?php include "include/script.php" ?>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="ruta/a/jquery.min.js"></script>
+
     <title>Lista de productos</title>
 </head>
 
@@ -69,22 +74,22 @@ include "../conexion.php";
                                 }
                         ?>
                                 <tr>
-                                    <th><?php echo $data['codproducto'] ?></th>
-                                    <th><?php echo $data['descripcion'] ?></th>
-                                    <td><?php echo $data['precio'] ?></td>
-                                    <td><?php echo $data['existencia'] ?></td>
-                                    <td><?php echo $data['proveedor'] ?></td>
-                                    <td><img src="<?php echo $foto ?>" alt="<?php echo $data['descripcion'] ?>" class="img-producto p-4" ></td>
+                                    <th class="text-center align-middle"><?php echo $data['codproducto'] ?></th>
+                                    <th class="text-center align-middle"><?php echo $data['descripcion'] ?></th>
+                                    <td class="text-center align-middle"><?php echo $data['precio'] ?></td>
+                                    <td class="text-center align-middle"><?php echo $data['existencia'] ?></td>
+                                    <td class="text-center align-middle"><?php echo $data['proveedor'] ?></td>
+                                    <td class="text-center align-middle"><img src="<?php echo $foto ?>" alt="<?php echo $data['descripcion'] ?>" class="img-producto p-4"></td>
+                                    <?php
+                                    if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) { ?>
+                                        <td class="text-center align-middle">
+                                            <a class="btn btn-info mx-2 add_product" product="<?php echo $data['codproducto']; ?>" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Agregar</a>
+                                            <a href="editar_producto.php?id=<?php echo $data['codproducto'] ?>" class="btn btn-success mx-2">Editar</a>
 
-                                    <td>
-                                        <a href="agregar_producto.php?id=<?php echo $data['codproducto'] ?>" class="btn btn-info mx-2">Agregar</a>
-                                        <a href="editar_producto.php?id=<?php echo $data['codproducto'] ?>" class="btn btn-success mx-2">Editar</a>
 
-                                        <?php
-                                        if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) { ?>
-                                            <a href="eliminar_confirmar_producto.php?id=<?php echo $data['codproducto'] ?>" class="btn btn-danger">Borrar</a>
-                                        <?php  } ?>
-                                    </td>
+                                            <a href="eliminar_confirmar_producto.php?id=<?php echo $data['codproducto'] ?>" class="btn btn-danger">Eliminar</a>
+                                        </td>
+                                    <?php  } ?>
                                 </tr>
                         <?php
                             }
@@ -115,6 +120,72 @@ include "../conexion.php";
     </section>
 
     <?php include "include/footer.php" ?>
+    <script>
+        $(document).ready(function() {
+            //--------------------- SELECCIONAR FOTO PRODUCTO ---------------------
+            $("#foto").on("change", function() {
+                var uploadFoto = document.getElementById("foto").value;
+                var foto = document.getElementById("foto").files;
+                var nav = window.URL || window.webkitURL;
+                var contactAlert = document.getElementById("form_alert");
+
+                if (uploadFoto != "") {
+                    var type = foto[0].type;
+                    var name = foto[0].name;
+                    if (type != "image/jpeg" && type != "image/jpg" && type != "image/png") {
+                        contactAlert.innerHTML =
+                            '<p class="errorArchivo">El archivo no es válido.</p>';
+                        $("#img").remove();
+                        $(".delPhoto").addClass("notBlock");
+                        $("#foto").val("");
+                        return false;
+                    } else {
+                        contactAlert.innerHTML = "";
+                        $("#img").remove();
+                        $(".delPhoto").removeClass("notBlock");
+                        var objeto_url = nav.createObjectURL(this.files[0]);
+                        $(".preview").append("<img id='img' src=" + objeto_url + ">");
+                        $("./upimg label").remove();
+                    }
+                } else {
+                    alert("No selecciono foto");
+                    $("#img").remove();
+                }
+            });
+
+            $(".delPhoto").click(function() {
+                $("#foto").val("");
+                $(".delPhoto").addClass("notBlock");
+                $("#img").remove();
+            });
+
+            //Modal from Add product//
+
+            $(".add_product").click(function(e) {
+                e.preventDefault();
+                var producto = $(this).attr("product");
+                var action = "infoProducto";
+
+                $.ajax({
+                    url: "ajax.php",
+                    type: "POST",
+                    async: true,
+                    data: {
+                        action: action,
+                        producto: producto
+                    },
+
+                    success: function(response) {
+                        console.log(response);
+                    },
+
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
