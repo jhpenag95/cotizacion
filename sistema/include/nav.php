@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary fs-4 position-relative mb-4">
     <div class="container-fluid d-flex justify-content-between align-items-center">
         <div class="contimg">
-            <img src="../img/logo.png" alt="" width="200" height="auto">
+            <!-- <img src="#" alt="" width="200" height="auto"> -->
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarResponsive">

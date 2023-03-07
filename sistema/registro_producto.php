@@ -66,10 +66,12 @@ if (!empty($_POST)) {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="ruta/a/jquery.min.js"></script>
     <script src="js/functions.js"></script>
 
     <title>Registro Productos</title>
+
+
+
 </head>
 
 <body>
@@ -145,9 +147,8 @@ if (!empty($_POST)) {
 
     <?php include "include/footer.php" ?>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="ruta/a/jquery.min.js"></script>
     <script src="js/functions.js"></script>
-
+    
 
 </body>
 
