@@ -13,7 +13,7 @@ include "../conexion.php";
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
+
 
     <title>Lista de productos</title>
 </head>
@@ -106,16 +106,14 @@ include "../conexion.php";
 
                     </tbody>
                 </table>
-                <nav aria-label="Page navigation example">
+                <nav class="position-relative z-n1" aria-label="Page navigation example">
                     <ul class="pagination d-flex justify-content-end">
                         <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
                         <?php
-
                         for ($i = 1; $i <= $total_paginas; $i++) {
                             if ($i == $pagina) {
                                 echo '<li class="page-item"><a class="page-link">' . $i . '</a></li>';
                             } else {
-
                                 echo '<li class="page-item"><a class="page-link" href="?pagina=' . $i . '">' . $i . '</a></li>';
                             }
                         }
@@ -123,12 +121,16 @@ include "../conexion.php";
                         <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
                     </ul>
                 </nav>
+
             </div>
         </div>
     </section>
 
+
+
     <?php include "include/footer.php" ?>
     <script src="js/functions.js"></script>
+    <script src="js/buscadorProductos.js"></script>
 </body>
 
 </html>

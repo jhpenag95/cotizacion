@@ -24,7 +24,7 @@
     text-transform: uppercase;
 }
 
-#form_add_product{
+#form_add_product, #form_del_product{
     text-align: center;
     width: 420px;
 }
