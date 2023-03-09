@@ -63,8 +63,8 @@
                         Cotización
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Cotización</a></li>
-                        <li><a class="dropdown-item" href="#">Nuevo Cotización</a></li>
+                        <li><a class="dropdown-item" href="nueva_venta.php">Nuevo Cotización</a></li>
+                        <li><a class="dropdown-item" href="#">Cotizaciones</a></li>
                     </ul>
                 </li>
             </ul>
