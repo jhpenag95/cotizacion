@@ -4,6 +4,7 @@ session_start();
 include "../conexion.php";
 
 
+
 ?>
 
 <!DOCTYPE html>
@@ -123,12 +124,12 @@ include "../conexion.php";
                             </tr>
                             <tr>
                                 <td><input type="text" name="txt_cod_producto" id="txt_cod_producto"></td>
-                                <td id="text_descripcion">Producto</td>
-                                <td id="text_existencia">10</td>
-                                <td><input type="text" name="text_cant_producto" min="1" value="2"></td>
-                                <td id="text_precio" class="text-right">$20</td>
-                                <td id="text_precio_total" class="text-right">$40</td>
-                                <td class="d-flex justify-content-center"><a href="#" class="btn btn-success"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                <td id="text_descripcion">-</td>
+                                <td id="text_existencia">-</td>
+                                <td><input type="text" id="text_cant_producto" name="text_cant_producto" min="1" value="0" disabled></td>
+                                <td id="text_precio" class="text-right">0.00</td>
+                                <td id="text_precio_total" class="text-right">0.00</td>
+                                <td class="d-flex justify-content-center"><button id="add_product_venta" class="btn btn-success"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
                                         </svg></a></td>
                             </tr>
@@ -141,41 +142,11 @@ include "../conexion.php";
                                 <th>Acción</td>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td colspan="2">Mause USB</td>
-                                <td>1</td>
-                                <td class="right-align">100.00</td>
-                                <td class="right-align">100.00</td>
-                                <td class="d-flex justify-content-center"><a class="link_delete btn btn-danger" href="#" onclick="event.preventDefault(); del_product_detalle(1);"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                        </svg></a></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td colspan="2">teclado USB</td>
-                                <td>1</td>
-                                <td class="right-align">100.00</td>
-                                <td class="right-align">100.00</td>
-                                <td class="d-flex justify-content-center"><a class="link_delete btn btn-danger" href="#" onclick="event.preventDefault(); del_product_detalle(1);"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                        </svg></a></td>
-                            </tr>
+                        <tbody id="detalle_venta">
+                            <!--Contenido AJAX-->
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="5" class="right-align bold-text">SUBTOTAL</td>
-                                <td class="text-right">8.000</td>
-                            </tr>
-                            <tr>
-                                <td colspan="5" class="right-align bold-text">IVA 19%</td>
-                                <td class="text-right">2000</td>
-                            </tr>
-                            <tr>
-                                <td colspan="5" class="right-align bold-text">TOTAL</td>
-                                <td class="text-right">10.000</td>
-                            </tr>
+                        <tfoot id="detalle_totales">
+                            <!--Contenido AJAX-->
                         </tfoot>
                     </table>
                 </div>
@@ -186,6 +157,15 @@ include "../conexion.php";
     </section>
     <?php include "include/footer.php"; ?>
     <script src="js/nuevaVenta.js"></script>
+
+    <!--Contenido AJAX-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var usuarioid = '<?php echo $_SESSION['idUser'];?>';
+            serchForDetalle(usuarioid);
+        })
+    </script>
+
 </body>
 
 </html>

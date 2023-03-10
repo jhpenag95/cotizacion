@@ -20,3 +20,7 @@
 td.text-right {
     text-align: right;
 }
+
+#add_product_venta{
+    display: none;
+}
