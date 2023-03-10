@@ -143,7 +143,7 @@ $(document).ready(function () {
 
 /*****************Eliminar datos desde el formulario modal almacenar**************** */
 function delProduct() {
-  var pr = $('producto_id').val();
+  var pr = $("producto_id").val();
 
   $(".alertAddProduct").html("");
 
@@ -160,8 +160,8 @@ function delProduct() {
           '<p style="color: red;">Error al elimiar Producto</p>'
         );
       } else {
-        $(".row" +pr).remove();
-        $('#form_del_product .btn_ok').remove();
+        $(".row" + pr).remove();
+        $("#form_del_product .btn_ok").remove();
         $(".alertAddProduct").html("<p>Producto eliminado correctamente</p>");
       }
     },

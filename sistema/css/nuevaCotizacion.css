@@ -1,0 +1,22 @@
+
+.title_page {
+    padding-top: 133px;
+}
+
+#div_registro_cliente{
+    display: none;
+}
+
+.right-align {
+    text-align: right;
+}
+
+.bold-text {
+    color: #000000;
+    font-weight: bold;
+}
+
+
+td.text-right {
+    text-align: right;
+}
