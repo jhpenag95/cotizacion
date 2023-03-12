@@ -177,7 +177,7 @@ if (!empty($_POST['action'])) {
                         <td>'.$data['cantidad'].'</td>
                         <td class="right-align">'.$data['precio_venta'].'0</td>
                         <td class="right-align">'.$precioTotal.'</td>
-                        <td class="d-flex justify-content-center"><a class="link_delete btn btn-danger" href="#" onclick="event.preventDefault(); del_product_detalle('.$data['codproducto'].');"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                        <td class="d-flex justify-content-center"><a class="link_delete btn btn-danger" href="#" onclick="event.preventDefault(); del_product_detalle('.$data['correlativo'].');"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                                 <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
                             </svg></a></td>
                     </tr>';
@@ -269,7 +269,7 @@ if (!empty($_POST['action'])) {
                         <td>'.$data['cantidad'].'</td>
                         <td class="right-align">'.$data['precio_venta'].'0</td>
                         <td class="right-align">'.$precioTotal.'</td>
-                        <td class="d-flex justify-content-center"><a class="link_delete btn btn-danger" href="#" onclick="event.preventDefault(); del_product_detalle('.$data['codproducto'].');"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                        <td class="d-flex justify-content-center"><a class="link_delete btn btn-danger" href="#" onclick="event.preventDefault(); del_product_detalle('.$data['correlativo'].');"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                                 <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
                             </svg></a></td>
                     </tr>';
@@ -307,7 +307,108 @@ if (!empty($_POST['action'])) {
         }
         exit;
     }
+
+    //Eliminar producto del la tabla de ventas
+    if ($_POST['action'] == 'delProductoDetalle'){
+        if (empty($_POST['id_detalle'])) {
+            echo 'error';
+        }else{
+            $id_detalle = $_POST['id_detalle'];
+            $token = md5($_SESSION['idUser']);
+
+            
+
+            //extraer IVA
+            $query_iva = mysqli_query($conexion, "SELECT iva FROM configuracion");
+            $result_iva = mysqli_num_rows($query_iva);
+
+
+            //ejecutar procedimiento almacenado
+            $query_detalle_temp = mysqli_query($conexion, "CALL del_detalle_temp($id_detalle,'$token')");
+            $result = mysqli_num_rows($query_detalle_temp);
+
+            $detalleTabla = '';
+            $sub_total = 0;
+            $iva = 0;
+            $total = 0;
+            $arrayData = array();
+
+            if ($result > 0) {
+                //Validar que exista el IVA
+                if ($result_iva > 0) {
+                    $inf_iva = mysqli_fetch_assoc($query_iva);
+                    $iva = $inf_iva['iva'];
+                }
+
+                //para recorrer todos los registros que devuelve el procedimiento almacenado
+                while ($data = mysqli_fetch_assoc($query_detalle_temp)) {
+                    //se deben calcular datos
+                    $precioTotal = round($data['cantidad'] * $data['precio_venta'], 2);
+                    $sub_total = round($sub_total + $precioTotal, 2);
+                    $total = round($total + $precioTotal, 2);
+
+                    $detalleTabla .= '
+                    <tr>
+                        <td>'.$data['codproducto'].'</td>
+                        <td colspan="2">'.$data['descripcion'].'</td>
+                        <td>'.$data['cantidad'].'</td>
+                        <td class="right-align">'.$data['precio_venta'].'0</td>
+                        <td class="right-align">'.$precioTotal.'</td>
+                        <td class="d-flex justify-content-center"><a class="link_delete btn btn-danger" href="#" onclick="event.preventDefault(); del_product_detalle('.$data['correlativo'].');"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                            </svg></a></td>
+                    </tr>';
+                }
+
+                //se calculan los totales
+                $impuesto = round($sub_total * ($iva / 100), 2);
+                $tl_sniva = round($sub_total - $impuesto, 2);
+                $total    = round($tl_sniva + $impuesto, 2);
+
+                $detalleTotales = '
+                <tr>
+                    <td colspan="5" class="right-align bold-text">SUBTOTAL</td>
+                    <td class="text-right">'.$tl_sniva.'</td>
+                </tr>
+                <tr>
+                    <td colspan="5" class="right-align bold-text">IVA 19%</td>
+                    <td class="text-right">'.$impuesto.'</td>
+                </tr>
+                <tr>
+                    <td colspan="5" class="right-align bold-text">TOTAL</td>
+                    <td class="text-right">'.$total.'</td>
+                </tr>';
+
+                $arrayData ['detalle'] = $detalleTabla;
+                $arrayData ['totales'] = $detalleTotales;
+
+                //Retornamos array
+                echo json_encode($arrayData,JSON_UNESCAPED_UNICODE);
+
+            }else{
+                echo 'error';
+                exit;
+            }
+            mysqli_close($conexion);
+        }
+        exit;
+    }
+
+    //Anular Venta
+    if ($_POST['action'] == 'anularVenta'){
+
+        $token = md5($_SESSION['idUser']);
+        $query_del = mysqli_query($conexion, "DELETE FROM detalle_temp WHERE token_user = '$token'");
+
+        mysqli_close($conexion);
+
+        if ($query_del) {
+            echo 'ok';
+        }else{
+            echo 'error';
+        }
+        exit;
+    }
 }
 exit;
-
 ?>

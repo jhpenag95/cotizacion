@@ -103,8 +103,8 @@ include "../conexion.php";
                     <div class="row mb-3">
                         <label for="inputTelefono" class="col-sm-2 col-form-label">Acciones</label>
                         <div class="col-sm-10">
-                            <a href="#" type="button" class="btn btn-warning">Anular</a>
-                            <a href="#" type="button" class="btn btn-primary">Procesar</a>
+                            <a href="#" type="button" class="btn btn-warning" id="btn_anular_venta">Anular</a>
+                            <a href="#" type="button" class="btn btn-primary" id="btn_facturar_venta" style="display: none;">Procesar</a>
                         </div>
                     </div>
                 </div>
@@ -129,7 +129,7 @@ include "../conexion.php";
                                 <td><input type="text" id="text_cant_producto" name="text_cant_producto" min="1" value="0" disabled></td>
                                 <td id="text_precio" class="text-right">0.00</td>
                                 <td id="text_precio_total" class="text-right">0.00</td>
-                                <td class="d-flex justify-content-center"><button id="add_product_venta" class="btn btn-success"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                <td class="d-flex justify-content-center"><button id="add_product_venta"  name="action" class="btn btn-success"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
                                         </svg></a></td>
                             </tr>
