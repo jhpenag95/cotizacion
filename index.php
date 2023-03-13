@@ -77,8 +77,8 @@ if (!empty($_SESSION['active'])) {
                         <div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
                         <div class="text-center text-lg-start mt-4 pt-2">
                             <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Entrar</button>
-                            <p class="small fw-bold mt-2 pt-1 mb-0">No tienes cuenta? <a href="#!" class="link-danger">Registrar</a></p>
-                            <p class="small fw-bold mt-2 pt-1 mb-0"><a href="#!" class=" text-light">Problemas para ingresar?</a></p>
+                            <!-- <p class="small fw-bold mt-2 pt-1 mb-0">No tienes cuenta? <a href="#!" class="link-danger">Registrar</a></p>
+                            <p class="small fw-bold mt-2 pt-1 mb-0"><a href="#!" class=" text-light">Problemas para ingresar?</a></p> -->
                         </div>
 
                     </form>

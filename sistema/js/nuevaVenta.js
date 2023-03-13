@@ -315,9 +315,9 @@ $("#btn_anular_venta").click(function (e) {
 
       success: function (response) {
 
-          if (response != 'error') {
-            location.reload();
-          }
+        if (response != 'error') {
+          location.reload();
+        }
       },
 
       error: function (error) {
@@ -326,3 +326,57 @@ $("#btn_anular_venta").click(function (e) {
     });
   }
 });
+
+
+// facturar venta - Boton procesar
+$("#btn_facturar_venta").click(function (e) {
+  e.preventDefault();
+
+  var row = $("#detalle_venta tr").length;
+
+  if (row > 0) {
+    var action = "procesarVenta";
+    var codcliente = $('#idcliente').val();
+
+    $.ajax({
+      url: "ajax.php",
+      type: "POST",
+      async: true,
+      data: { action: action, codcliente: codcliente },
+
+      success: function (response) {
+        if (response != 'error') {
+
+          var info = JSON.parse(response);
+          //console.log(info);
+
+          location.reload();//recarga la pagina
+
+          generarPDF(info.codcliente,info.nofactura);
+
+        }else{
+          console.log('no data');
+        }
+      },
+
+      error: function (error) {
+        console.error(error);
+      },
+    });
+  }
+});
+
+//Genera PDF venta
+
+function generarPDF(cliente, factura) {
+  var ancho = 1000;
+  var alto = 800;
+
+  //Calcular posición x,y para centrar ventana 
+  var x = parseInt((window.screen.width/2) - (ancho / 2));
+  var y = parseInt((window.screen.width/2) - (alto / 2));
+
+  $url = 'factura/generaFactura.php?cl='+cliente+'&f='+factura;
+  window.open($url,"cotizacion","left="+x+",top="+y+",height="+alto+",width="+ancho+",scrollbar=si,location=no,resizable=si,menubar=no");
+
+}
