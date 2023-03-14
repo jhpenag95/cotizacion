@@ -1,4 +1,4 @@
-//activar canpos para registrar cliente
+//activar campos para registrar cliente
 
 $(document).ready(function () {
   // Manejar el clic en el botón
@@ -7,6 +7,7 @@ $(document).ready(function () {
     $("#inputNombre").removeAttr("disabled");
     $("#inputTelefono").removeAttr("disabled");
     $("#inputDireccion").removeAttr("disabled");
+    $("#inputEmail").removeAttr("disabled");
     $("#div_registro_cliente").slideDown();
   });
 });
@@ -31,6 +32,7 @@ $("#nit_cliente").keyup(function (e) {
         $("#inputNombre").val("");
         $("#inputTelefono").val("");
         $("#inputDireccion").val("");
+        $("#inputEmail").val("");
 
         //mostrar boton agregar
         $("#btn_new_cliente").slideDown();
@@ -40,6 +42,7 @@ $("#nit_cliente").keyup(function (e) {
         $("#inputNombre").val(data.nombre);
         $("#inputTelefono").val(data.telefono);
         $("#inputDireccion").val(data.direccion);
+        $("#inputEmail").val(data.correo);
 
         //oculta boton agregar
         $("#btn_new_cliente").slideUp();
@@ -48,6 +51,7 @@ $("#nit_cliente").keyup(function (e) {
         $("#inputNombre").attr("disabled", "disabled");
         $("#inputTelefono").attr("disabled", "disabled");
         $("#inputDireccion").attr("disabled", "disabled");
+        $("#inputEmail").attr("disabled", "disabled");
 
         //oculta boton guardar
         $("#div_registro_cliente").slideUp();
@@ -78,6 +82,7 @@ $("#form_new_cliente_venta").submit(function (e) {
         $("#inputNombre").attr("disabled", "disabled");
         $("#inputTelefono").attr("disabled", "disabled");
         $("#inputDireccion").attr("disabled", "disabled");
+        $("#inputEmail").attr("disabled", "disabled");
 
         //Ocultar boton agregar
         $("#btn_new_cliente").slideUp();
@@ -350,9 +355,9 @@ $("#btn_facturar_venta").click(function (e) {
           var info = JSON.parse(response);
           //console.log(info);
 
+          generarPDF(info.codcliente,info.nofactura);
           location.reload();//recarga la pagina
 
-          generarPDF(info.codcliente,info.nofactura);
 
         }else{
           console.log('no data');

@@ -25,8 +25,10 @@ include "../conexion.php";
                         <tr>
                             <th scope="col">Id</th>
                             <th scope="col">Nit</th>
-                            <th scope="col">teléfono</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Teléfono</th>
                             <th scope="col">Dirección</th>
+                            <th scope="col">Correo</th>
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
@@ -69,6 +71,7 @@ include "../conexion.php";
                                     <td><?php echo $data['nombre'] ?></td>
                                     <td><?php echo $data['telefono'] ?></td>
                                     <td><?php echo $data['direccion'] ?></td>
+                                    <td><?php echo $data['correo'] ?></td>
                                     <td>
                                         <a href="editar_Clientes.php?id=<?php echo $data['idcliente'] ?>" class="btn btn-success mx-2">Editar</a>
                                         

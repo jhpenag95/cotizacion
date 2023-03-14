@@ -51,12 +51,6 @@ include "../conexion.php";
                             <input type="text" class="form-control" id="inputNombre" name="nom_cliente" placeholder="Ingrese su nombre completo" disabled required>
                         </div>
                     </div>
-                    <!-- <div class="row mb-3">
-                    <label for="inputEmail" class="col-sm-2 col-form-label">Correo electrónico</label>
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail" placeholder="Ingrese su correo electrónico">
-                    </div>
-                </div> -->
                     <div class="row mb-3">
                         <label for="inputTelefono" class="col-sm-2 col-form-label">Teléfono</label>
                         <div class="col-sm-10">
@@ -69,18 +63,12 @@ include "../conexion.php";
                             <input type="text" class="form-control" id="inputDireccion" name="dir_cliente" placeholder="Ingrese su dirección" disabled required>
                         </div>
                     </div>
-                    <!-- <div class="row mb-3">
-                    <label for="inputCiudad" class="col-sm-2 col-form-label">Ciudad</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputCiudad" placeholder="Ingrese su ciudad">
+                    <div class="row mb-3">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Correo</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Ingrese correo electrónico cliente" disabled required>
+                        </div>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <label for="inputPais" class="col-sm-2 col-form-label">País</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputPais" placeholder="Ingrese su país">
-                    </div>
-                </div> -->
                     <div id="div_registro_cliente">
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
@@ -123,13 +111,14 @@ include "../conexion.php";
                                 <th>Acción</th>
                             </tr>
                             <tr>
+
                                 <td><input type="text" name="txt_cod_producto" id="txt_cod_producto"></td>
                                 <td id="text_descripcion">-</td>
                                 <td id="text_existencia">-</td>
                                 <td><input type="text" id="text_cant_producto" name="text_cant_producto" min="1" value="0" disabled></td>
                                 <td id="text_precio" class="text-right">0.00</td>
                                 <td id="text_precio_total" class="text-right">0.00</td>
-                                <td class="d-flex justify-content-center"><button id="add_product_venta"  name="action" class="btn btn-success"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                <td class="d-flex justify-content-center"><button id="add_product_venta" name="action" class="btn btn-success"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
                                         </svg></a></td>
                             </tr>
@@ -160,8 +149,8 @@ include "../conexion.php";
 
     <!--Contenido AJAX-->
     <script type="text/javascript">
-        $(document).ready(function () {
-            var usuarioid = '<?php echo $_SESSION['idUser'];?>';
+        $(document).ready(function() {
+            var usuarioid = '<?php echo $_SESSION['idUser']; ?>';
             serchForDetalle(usuarioid);
         })
     </script>

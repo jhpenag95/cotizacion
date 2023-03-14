@@ -116,9 +116,10 @@ if (!empty($_POST['action'])) {
         $nombre      = $_POST['nom_cliente'];
         $telefono    = $_POST['tel_cliente'];
         $direccion   = $_POST['dir_cliente'];
+        $correo   = $_POST['inputEmail'];
         $usuario_id  = $_SESSION['idUser'];
 
-        $query_insert = mysqli_query($conexion, "INSERT INTO cliente (nit,nombre,telefono,direccion,usuario_id) VALUE ('$nit','$nombre','$telefono','$direccion','$usuario_id')");
+        $query_insert = mysqli_query($conexion, "INSERT INTO cliente (nit,nombre,telefono,direccion,correo,usuario_id) VALUE ('$nit','$nombre','$telefono','$direccion','$correo','$usuario_id')");
         
 
         if ($query_insert) {

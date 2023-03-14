@@ -4,7 +4,7 @@ session_start();
 include "../conexion.php";
 if (!empty($_POST)) {
     $alert = '';
-    if (empty($_POST['nombre']) || empty($_POST['telefono']) || empty($_POST['direccion'])) {
+    if (empty($_POST['nombre']) || empty($_POST['telefono']) || empty($_POST['direccion']) || empty($_POST['correo'])) {
         $alert = '<p class="msg_error alertas-p"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill mx-2" viewBox="0 0 16 16">
 		<path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
 	  </svg>Todos los campos son obligatorio</p>';
@@ -13,6 +13,7 @@ if (!empty($_POST)) {
         $nombre = $_POST['nombre'];
         $telefono = $_POST['telefono'];
         $direccion = $_POST['direccion'];
+        $correo = $_POST['correo'];
         $usuario_id = $_SESSION['idUser'];
 
         $result = 0;
@@ -27,7 +28,7 @@ if (!empty($_POST)) {
 			<path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
 		  </svg>Nit del cliente ya existe</p>';
         } else {
-            $query_insert = mysqli_query($conexion, "INSERT INTO cliente (nit,nombre,telefono,direccion,usuario_id) VALUE ('$nit','$nombre','$telefono','$direccion','$usuario_id')");
+            $query_insert = mysqli_query($conexion, "INSERT INTO cliente (nit,nombre,telefono,direccion,correo,usuario_id) VALUE ('$nit','$nombre','$telefono','$direccion','$correo','$usuario_id')");
 
             if ($query_insert) {
 
@@ -77,12 +78,18 @@ if (!empty($_POST)) {
                     </div>
                     <div class="col-md-4 position-relative">
                         <label for="validationTooltip02" class="form-label">Teléfono</label>
-                        <input type="number" class="form-control" name="telefono" id="validationTooltip02" placeholder="Télefono del cliente" required>
+                        <input type="text" class="form-control" name="telefono" id="validationTooltip02" placeholder="Télefono del cliente" required>
                     </div>
                     <div class="col-md-4 position-relative">
                         <label for="validationTooltipUsername" class="form-label">Dirección</label>
                         <div class="input-group has-validation">
                             <input type="text" class="form-control" name="direccion" id="validationTooltipUsername" aria-describedby="validationTooltipUsernamePrepend" placeholder="Dirección cliente" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4 position-relative">
+                        <label for="validationTooltipUsername" class="form-label">Correo</label>
+                        <div class="input-group has-validation">
+                            <input type="email" class="form-control" name="correo" id="validationTooltipUsername" aria-describedby="validationTooltipUsernamePrepend" placeholder="Correo cliente" required>
                         </div>
                     </div>
                     <div class="col-12">
